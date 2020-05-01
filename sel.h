@@ -19,21 +19,21 @@ void createLocalC(Matrix &C,mesh m){
 
 void createLocalD(Matrix &D,mesh m){
 	float l = m.getParameter(A);
-	float E = m.getParameter(E);
-    D.at(0).at(0) += (E/l);  D.at(0).at(1) += -(E/l);
-    D.at(1).at(0) += -(E/l);  D.at(1).at(1) += (E/l);
+	float e = m.getParameter(E);
+    D.at(0).at(0) += (e/l);  D.at(0).at(1) += -(e/l);
+    D.at(1).at(0) += -(e/l);  D.at(1).at(1) += (e/l);
 }
 
 void createLocalE(Matrix &E,mesh m){
-	float G = m.getParameter(G);
-    E.at(0).at(0) += -((3.0*G)/2);  E.at(0).at(1) += ((3.0*G)/2);
-    E.at(1).at(0) += -((3.0*G)/2);  E.at(1).at(1) += ((3.0*G)/2);
+	float g = m.getParameter(G);
+    E.at(0).at(0) += -((3.0*g)/2);  E.at(0).at(1) += ((3.0*g)/2);
+    E.at(1).at(0) += -((3.0*g)/2);  E.at(1).at(1) += ((3.0*g)/2);
 }
 
 void createLocalF(Matrix &F,mesh m){
-	float H = m.getParameter(H);
-    F.at(0).at(0) += -(H/2);  F.at(0).at(1) += (H/2);
-    F.at(1).at(0) += -(H/2);  F.at(1).at(1) += (H/2);
+	float h = m.getParameter(H);
+    F.at(0).at(0) += -(h/2);  F.at(0).at(1) += (h/2);
+    F.at(1).at(0) += -(h/2);  F.at(1).at(1) += (h/2);
 }
 
 Matrix createLocalK(int element,mesh &m){
@@ -123,6 +123,11 @@ void assemblyK(element e,Matrix localK,Matrix &K,int nnodes){
     K.at(index3).at(index2) += localK.at(2).at(1);
     K.at(index4).at(index1) += localK.at(3).at(0);
     K.at(index4).at(index2) += localK.at(3).at(1);
+    
+    K.at(index3).at(index3) += localK.at(2).at(2);
+    K.at(index3).at(index4) += localK.at(2).at(3);
+    K.at(index4).at(index3) += localK.at(3).at(2);
+    K.at(index4).at(index4) += localK.at(3).at(3);
 
 }
 
